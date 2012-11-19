@@ -31,8 +31,6 @@ public class SpaceeAventuree implements ApplicationListener {
 		sprite.setSize(1f, 1f * sprite.getHeight() / sprite.getWidth());
 		sprite.setOrigin(sprite.getWidth()*0, sprite.getHeight()*0);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
-		System.out.println("coool srotyr bro");
-		//this is something new
 	}
 
 	@Override
@@ -48,7 +46,6 @@ public class SpaceeAventuree implements ApplicationListener {
 		batch.begin();
 		batch.draw(sprite, 0, 0);
 		batch.end();
-		//this is another commit
 	}
 
 	@Override
