@@ -31,9 +31,6 @@ public class SpaceeAventuree implements ApplicationListener {
 		sprite.setSize(1f, 1f * sprite.getHeight() / sprite.getWidth());
 		sprite.setOrigin(sprite.getWidth()*0, sprite.getHeight()*0);
 		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
-		//asdsdsjd
-		//gjgjggj
-		//asfjsidjg
 	}
 
 	@Override
