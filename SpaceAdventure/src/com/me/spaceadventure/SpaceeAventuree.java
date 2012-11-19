@@ -25,12 +25,14 @@ public class SpaceeAventuree implements ApplicationListener {
 		texture = new Texture(Gdx.files.internal("SpikeCity.png"));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		TextureRegion region = new TextureRegion(texture, 0, 0, 50, 50);
+		TextureRegion region = new TextureRegion(texture);
 		
 		sprite = new Sprite(region);
-		sprite.setSize(1f, 1f * sprite.getHeight() / sprite.getWidth());
-		sprite.setOrigin(sprite.getWidth()*0, sprite.getHeight()*0);
-		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+		
+		//sprite.setOrigin(sprite.getWidth()*0, sprite.getHeight()*0);
+		//sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+		//sprite.setSize(10f, 10f * sprite.getHeight() / sprite.getWidth());
+		sprite.setScale(500, 500);
 	}
 
 	@Override
