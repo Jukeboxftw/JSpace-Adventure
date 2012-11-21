@@ -11,9 +11,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class SpaceeAventuree implements ApplicationListener {
+	private Vector3 mousepos = new Vector3();
 	private LogicMode logic= new LogicMode();
 	private int X=0, Y=0;
 	private double origtime=TimeUtils.nanoTime();
@@ -21,7 +23,7 @@ public class SpaceeAventuree implements ApplicationListener {
 	private OrthographicCamera camera;
 	private TextureRegion adventurer, background;
 	private SpriteBatch batch;
-	private Texture texture;
+	private Texture texture, crosshair;
 	private Sprite sprite;
 	
 	@Override
@@ -36,6 +38,8 @@ public class SpaceeAventuree implements ApplicationListener {
 		texture = new Texture(Gdx.files.internal("gameover.png"));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		background = new TextureRegion(texture, 0, 0, 1280, 720);
+		crosshair = new Texture(Gdx.files.internal("crosshair.png"));
+		crosshair.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		/*sprite = new Sprite(region);
 		
 		//sprite.setOrigin(sprite.getWidth()*0, sprite.getHeight()*0);
@@ -53,14 +57,18 @@ public class SpaceeAventuree implements ApplicationListener {
 	@Override
 	public void render() {
 		logic.frameMove();
+		logic.getMouse();
 		Gdx.gl.glClearColor(1, 0, 1, 1);
 	    Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
-		input.checkInput();
 		batch.begin();
 		batch.draw(background, logic.Xpos(), logic.Ypos());
 		batch.draw(adventurer, 1280/2, 720/3);
+		if(logic.getMouse()!=null)
+		{
+			batch.draw(crosshair, (logic.getMouse().x)-10,720-(logic.getMouse().y)-10 );
+		}
 		batch.end();
 	}
 
