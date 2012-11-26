@@ -28,5 +28,14 @@ public class Input {
 	         touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 	         return touchPos;
 	}
+	public boolean checkClick()
+	{
+		if(Gdx.input.justTouched())
+		{
+			System.out.println("shoudlnt");
+			return true;
+		}
+		return false;
+	}
 
 }
