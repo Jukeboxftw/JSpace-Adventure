@@ -32,7 +32,6 @@ public class Input {
 	{
 		if(Gdx.input.justTouched())
 		{
-			System.out.println("shoudlnt");
 			return true;
 		}
 		return false;

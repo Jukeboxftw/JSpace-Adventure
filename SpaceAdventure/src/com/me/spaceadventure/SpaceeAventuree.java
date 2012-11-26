@@ -19,7 +19,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class SpaceeAventuree implements ApplicationListener {
 	private Input input = new Input();
 	private LogicMode logic= new LogicMode();
-	private Iterator<Rectangle> iterp;
+	private Iterator<Projectile> iterp;
 	private double origtime=TimeUtils.nanoTime();
 	private OrthographicCamera camera;
 	private Rectangle player, cursor;
@@ -77,8 +77,8 @@ public class SpaceeAventuree implements ApplicationListener {
 		iterp= logic.getProjectiles().iterator();
 		while(iterp.hasNext())
 		{
-			Rectangle newplat = iterp.next();
-			batch.draw(crosshair, newplat.x, 720-newplat.y);
+			Projectile newplat = iterp.next();
+			batch.draw(crosshair, newplat.getPos().x, 720-newplat.getPos().y);
 		}
 		batch.end();
 	}
@@ -128,6 +128,7 @@ public class SpaceeAventuree implements ApplicationListener {
 			camera.translate(500 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f), 0);
 			player.x+=500 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
 		}
+		logic.sendInfo(player.x, player.y);
 	}
 
 	@Override

@@ -8,11 +8,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 public class LogicMode {
-	private Array<Rectangle> projectiles= new Array<Rectangle>();
-	private Array<Rectangle> projaim = new Array<Rectangle>();
+	private Array<Projectile> projectiles= new Array<Projectile>();
 	private Array<Float> ratios = new Array<Float>();
-	private Iterator<Rectangle> iterp = projectiles.iterator();
-	private Iterator<Rectangle> itera = projaim.iterator();
+	private Iterator<Projectile> iterp = projectiles.iterator();
 	private Iterator<Float> iterr = ratios.iterator();
 	private Input input= new Input();
 	private Rectangle adventurerobject = new Rectangle();
@@ -25,7 +23,6 @@ public class LogicMode {
 	public void frameMove()
 	{
 		iterp=projectiles.iterator();
-		itera=projaim.iterator();
 		iterr=ratios.iterator();
 		moveProjectiles();
 		if(input.checkClick())
@@ -35,31 +32,24 @@ public class LogicMode {
 	}
 	public void addProjectile(float x, float y)
 	{
-		System.out.println("added just 1");
-		Rectangle newplat = new Rectangle(input.checkMouse().x, input.checkMouse().y, 20, 20);
-		float xy=0;
-		if(newplat.x>640)xy = (newplat.x-640)/(newplat.x-640+Math.abs(newplat.y-720/3));
-		else xy = -(640-newplat.x)/(640-newplat.x+Math.abs(newplat.y-720/3));
-		System.out.println(xy);
-		ratios.add(xy);
-		projaim.add(newplat);
-		newplat = new Rectangle(x,y,20,20);
-		projectiles.add(newplat);
+		System.out.println("x"+adventurerobject.x+"mousex"+input.checkMouse());
+		float xdir=0, ydir=0;
+		if(input.checkMouse().x>640) xdir = input.checkMouse().x-640;
+		else xdir = -1*(640 - input.checkMouse().x);
+		if(input.checkMouse().y>720/2) ydir = input.checkMouse().y-720/2;
+		else ydir = -1*(720/2 - input.checkMouse().y);
+		Projectile bullet = new Projectile(x, y, 10, (xdir/(Math.abs(xdir)+Math.abs(ydir))), ydir/(Math.abs(xdir)+Math.abs(ydir)));
+		projectiles.add(bullet);
 	}
 	public void moveProjectiles()
 	{
 		while(iterp.hasNext()) 
 	    {
-			Rectangle newplat = iterp.next();
-			Rectangle newaim = itera.next();
-			float ratio = iterr.next();
-			if(newaim.x<newplat.x)newplat.x-=ratio*500*(Math.min(Gdx.graphics.getDeltaTime(), 1/60f));
-			else newplat.x+=ratio*500*Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
-			if(newaim.y<newplat.y)newplat.y-=(1-ratio)*500*Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
-			else  newplat.y+=(1-ratio)*500*Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
+			Projectile bullet = iterp.next();
+			bullet.getNewPos();
 	    }
 	}
-	public Array<Rectangle> getProjectiles()
+	public Array<Projectile> getProjectiles()
 	{
 		return projectiles;
 	}
