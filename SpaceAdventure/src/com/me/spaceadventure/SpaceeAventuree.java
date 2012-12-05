@@ -25,7 +25,7 @@ public class SpaceeAventuree implements ApplicationListener {
 	private Rectangle player, cursor;
 	private TextureRegion adventurer, background;
 	private SpriteBatch batch;
-	private Texture texture, crosshair;
+	private Texture texture, crosshair, enemy;
 	private Sprite sprite;
 	
 	@Override
@@ -35,6 +35,8 @@ public class SpaceeAventuree implements ApplicationListener {
 	    camera.setToOrtho(false, 1280, 720);
 	    camera.position.set(640f,360f, 0);
 		batch = new SpriteBatch();
+		enemy = new Texture(Gdx.files.internal("SpikeRainbow.png"));
+		enemy.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		texture = new Texture(Gdx.files.internal("SpikeCity.png"));
 		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		adventurer = new TextureRegion(texture, 0, 0, 50, 50);
@@ -84,46 +86,46 @@ public class SpaceeAventuree implements ApplicationListener {
 	}
 	public void handleInput()
 	{
-		if(input.checkDirectionInput()=='E')
+		if(input.checkDirectionInput()=='E'&&player.y+10<=background.getRegionHeight()&&player.x+10<=background.getRegionWidth())
 		{
 			camera.translate(353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f), 353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f));
 			player.x+=353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
 			player.y+=353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
 		}
-		if(input.checkDirectionInput()=='Q')
+		if(input.checkDirectionInput()=='Q'&&player.x-10>=background.getRegionX()&&player.y+10<=background.getRegionHeight())
 		{
 			camera.translate(-353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f), 353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f));
 			player.x-=353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
 			player.y+=353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
 		}
-		if(input.checkDirectionInput()=='C')
+		if(input.checkDirectionInput()=='C'&&player.x+10<=background.getRegionWidth()&&player.y-10>=background.getRegionY())
 		{
 			camera.translate(353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f), -353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f));
 			player.x+=353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
 			player.y-=353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
 		}
-		if(input.checkDirectionInput()=='Z')
+		if(input.checkDirectionInput()=='Z'&&player.x-10>=background.getRegionX()&&player.y-10>=background.getRegionY())
 		{
 			camera.translate(-353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f), -353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f));
 			player.x-=353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
 			player.y-=353 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
 		}
-		if(input.checkDirectionInput()=='W')
+		if(input.checkDirectionInput()=='W'&&player.y+10<=background.getRegionHeight())
 		{
 			camera.translate(0, 500 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f));
 			player.y+=500 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
 		}
-		if(input.checkDirectionInput()=='S')
+		if(input.checkDirectionInput()=='S'&&player.y-10>=background.getRegionX())
 		{
 			camera.translate(0, -500 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f));
 			player.y-=500 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
 		}
-		if(input.checkDirectionInput()=='A')
+		if(input.checkDirectionInput()=='A'&&player.x-10>=background.getRegionX())
 		{
 			camera.translate(-500 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f), 0);
 			player.x-=500 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);
 		}
-		if(input.checkDirectionInput()=='D')
+		if(input.checkDirectionInput()=='D'&&player.x+10<=background.getRegionWidth())
 		{
 			camera.translate(500 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f), 0);
 			player.x+=500 * Math.min(Gdx.graphics.getDeltaTime(), 1/60f);

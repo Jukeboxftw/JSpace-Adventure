@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class LogicMode {
 	private Array<Projectile> projectiles= new Array<Projectile>();
+	private Array<Enemies> enemies = new Array<Enemies>();
 	private Array<Float> ratios = new Array<Float>();
 	private Iterator<Projectile> iterp = projectiles.iterator();
 	private Iterator<Float> iterr = ratios.iterator();
@@ -25,6 +26,7 @@ public class LogicMode {
 		iterp=projectiles.iterator();
 		iterr=ratios.iterator();
 		moveProjectiles();
+		
 		if(input.checkClick())
 		{
 			addProjectile(adventurerobject.x, adventurerobject.y);
@@ -40,6 +42,15 @@ public class LogicMode {
 		else ydir = -1*(720/2 - input.checkMouse().y);
 		Projectile bullet = new Projectile(x, y, 10, (xdir/(Math.abs(xdir)+Math.abs(ydir))), ydir/(Math.abs(xdir)+Math.abs(ydir)));
 		projectiles.add(bullet);
+	}
+	public void addEnemy(float x, float y, char Etype)
+	{
+		Enemies eny = new Enemies(x,x,Etype);
+		enemies.add(eny);
+	}
+	public void moveEnys()
+	{
+		
 	}
 	public void moveProjectiles()
 	{
